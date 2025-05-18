@@ -3,18 +3,19 @@ package models
 const (
 	ProviderOpenAI ModelProvider = "openai"
 
-	GPT41        ModelID = "gpt-4.1"
-	GPT41Mini    ModelID = "gpt-4.1-mini"
-	GPT41Nano    ModelID = "gpt-4.1-nano"
-	GPT45Preview ModelID = "gpt-4.5-preview"
-	GPT4o        ModelID = "gpt-4o"
-	GPT4oMini    ModelID = "gpt-4o-mini"
-	O1           ModelID = "o1"
-	O1Pro        ModelID = "o1-pro"
-	O1Mini       ModelID = "o1-mini"
-	O3           ModelID = "o3"
-	O3Mini       ModelID = "o3-mini"
-	O4Mini       ModelID = "o4-mini"
+	GPT41           ModelID = "gpt-4.1"
+	GPT41Mini       ModelID = "gpt-4.1-mini"
+	GPT41Nano       ModelID = "gpt-4.1-nano"
+	GPT45Preview    ModelID = "gpt-4.5-preview"
+	GPT4o           ModelID = "gpt-4o"
+	GPT4oMini       ModelID = "gpt-4o-mini"
+	O1              ModelID = "o1"
+	O1Pro           ModelID = "o1-pro"
+	O1Mini          ModelID = "o1-mini"
+	O3              ModelID = "o3"
+	O3Mini          ModelID = "o3-mini"
+	O4Mini          ModelID = "o4-mini"
+	CodexMiniLatest ModelID = "codex-mini-latest"
 )
 
 var OpenAIModels = map[ModelID]Model{
@@ -169,6 +170,20 @@ var OpenAIModels = map[ModelID]Model{
 		Name:                "o4 mini",
 		Provider:            ProviderOpenAI,
 		APIModel:            "o4-mini",
+		CostPer1MIn:         1.10,
+		CostPer1MInCached:   0.275,
+		CostPer1MOutCached:  0.0,
+		CostPer1MOut:        4.40,
+		ContextWindow:       128_000,
+		DefaultMaxTokens:    50000,
+		CanReason:           true,
+		SupportsAttachments: true,
+	},
+	CodexMiniLatest: {
+		ID:                  CodexMiniLatest,
+		Name:                "codex mini latest",
+		Provider:            ProviderOpenAI,
+		APIModel:            "codex-mini-latest",
 		CostPer1MIn:         1.10,
 		CostPer1MInCached:   0.275,
 		CostPer1MOutCached:  0.0,

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 	"time"
 
 	"github.com/openai/openai-go"
@@ -31,6 +32,20 @@ type openaiClient struct {
 	providerOptions providerClientOptions
 	options         openaiOptions
 	client          openai.Client
+}
+
+// useResponsesAPI determines if the OpenAI Responses API should be used for the
+// configured model. Some OpenAI models (o3/o4/codex) are only available via the
+// Responses API. Models coming from OpenRouter include a provider prefix such as
+// "openai/" which needs to be trimmed before evaluating the name.
+func (o *openaiClient) useResponsesAPI() bool {
+	model := o.providerOptions.model.APIModel
+	if idx := strings.IndexRune(model, '/'); idx >= 0 {
+		model = model[idx+1:]
+	}
+	return strings.HasPrefix(model, "o3") ||
+		strings.HasPrefix(model, "o4") ||
+		strings.HasPrefix(model, "codex")
 }
 
 type OpenAIClient ProviderClient
@@ -195,10 +210,18 @@ func (o *openaiClient) send(ctx context.Context, messages []message.Message, too
 	attempts := 0
 	for {
 		attempts++
-		openaiResponse, err := o.client.Chat.Completions.New(
-			ctx,
-			params,
-		)
+		var openaiResponse *openai.ChatCompletion
+		if o.useResponsesAPI() {
+			openaiResponse, err = o.client.Chat.Responses.New(
+				ctx,
+				params,
+			)
+		} else {
+			openaiResponse, err = o.client.Chat.Completions.New(
+				ctx,
+				params,
+			)
+		}
 		// If there is an error we are going to see if we can retry the call
 		if err != nil {
 			retry, after, retryErr := o.shouldRetry(attempts, err)
@@ -256,10 +279,18 @@ func (o *openaiClient) stream(ctx context.Context, messages []message.Message, t
 	go func() {
 		for {
 			attempts++
-			openaiStream := o.client.Chat.Completions.NewStreaming(
-				ctx,
-				params,
-			)
+			var openaiStream openai.ChatCompletionStream[openai.ChatCompletion]
+			if o.useResponsesAPI() {
+				openaiStream = o.client.Chat.Responses.NewStreaming(
+					ctx,
+					params,
+				)
+			} else {
+				openaiStream = o.client.Chat.Completions.NewStreaming(
+					ctx,
+					params,
+				)
+			}
 
 			acc := openai.ChatCompletionAccumulator{}
 			currentContent := ""

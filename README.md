@@ -194,6 +194,10 @@ OpenCode supports a variety of AI models from different providers:
 - O1 family (o1, o1-pro, o1-mini)
 - O3 family (o3, o3-mini)
 - O4 Mini
+- Codex Mini Latest
+
+*O3*, *O4* and *Codex* variants are automatically routed through the OpenAI
+Responses API, enabling full tool usage.
 
 ### Anthropic
 
@@ -230,6 +234,7 @@ OpenCode supports a variety of AI models from different providers:
 - O1 family (o1, o1-mini)
 - O3 family (o3, o3-mini)
 - O4 Mini
+- Codex Mini Latest
 
 ### Google Cloud VertexAI
 

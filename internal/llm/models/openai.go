@@ -14,7 +14,8 @@ const (
 	O1Mini       ModelID = "o1-mini"
 	O3           ModelID = "o3"
 	O3Mini       ModelID = "o3-mini"
-	O4Mini       ModelID = "o4-mini"
+       O4Mini       ModelID = "o4-mini"
+       CodexMini    ModelID = "codex-mini-latest"
 )
 
 var OpenAIModels = map[ModelID]Model{
@@ -164,18 +165,32 @@ var OpenAIModels = map[ModelID]Model{
 		CanReason:           true,
 		SupportsAttachments: false,
 	},
-	O4Mini: {
-		ID:                  O4Mini,
-		Name:                "o4 mini",
-		Provider:            ProviderOpenAI,
-		APIModel:            "o4-mini",
-		CostPer1MIn:         1.10,
-		CostPer1MInCached:   0.275,
-		CostPer1MOutCached:  0.0,
-		CostPer1MOut:        4.40,
-		ContextWindow:       128_000,
-		DefaultMaxTokens:    50000,
-		CanReason:           true,
-		SupportsAttachments: true,
-	},
+        O4Mini: {
+                ID:                  O4Mini,
+                Name:                "o4 mini",
+                Provider:            ProviderOpenAI,
+                APIModel:            "o4-mini",
+                CostPer1MIn:         1.10,
+                CostPer1MInCached:   0.275,
+                CostPer1MOutCached:  0.0,
+                CostPer1MOut:        4.40,
+                ContextWindow:       128_000,
+                DefaultMaxTokens:    50000,
+                CanReason:           true,
+                SupportsAttachments: true,
+        },
+       CodexMini: {
+               ID:                  CodexMini,
+               Name:                "codex mini latest",
+               Provider:            ProviderOpenAI,
+               APIModel:            "codex-mini-latest",
+               CostPer1MIn:         0.0,
+               CostPer1MInCached:   0.0,
+               CostPer1MOutCached:  0.0,
+               CostPer1MOut:        0.0,
+               ContextWindow:       128_000,
+               DefaultMaxTokens:    50000,
+               CanReason:           true,
+               SupportsAttachments: true,
+       },
 }

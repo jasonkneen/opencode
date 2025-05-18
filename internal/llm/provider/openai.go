@@ -1,13 +1,15 @@
 package provider
 
 import (
-	"context"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io"
-	"strings"
-	"time"
+
+  "context"
+  "encoding/json"
+  "errors"
+  "fmt"
+  "io"
+  "strings"
+  "time"
+
 
 	"github.com/openai/openai-go"
 	"github.com/openai/openai-go/option"
@@ -29,9 +31,16 @@ type openaiOptions struct {
 type OpenAIOption func(*openaiOptions)
 
 type openaiClient struct {
-	providerOptions providerClientOptions
-	options         openaiOptions
-	client          openai.Client
+        providerOptions providerClientOptions
+        options         openaiOptions
+        client          openai.Client
+}
+
+func (o *openaiClient) useResponsesAPI() bool {
+        model := o.providerOptions.model.APIModel
+        return strings.HasPrefix(model, "o3") ||
+                strings.HasPrefix(model, "o4") ||
+                strings.HasPrefix(model, "codex")
 }
 
 // useResponsesAPI determines if the OpenAI Responses API should be used for the
@@ -210,7 +219,7 @@ func (o *openaiClient) send(ctx context.Context, messages []message.Message, too
 	attempts := 0
 	for {
 		attempts++
-		var openaiResponse *openai.ChatCompletion
+	  var openaiResponse *openai.ChatCompletion
 		if o.useResponsesAPI() {
 			openaiResponse, err = o.client.Chat.Responses.New(
 				ctx,
@@ -222,6 +231,7 @@ func (o *openaiClient) send(ctx context.Context, messages []message.Message, too
 				params,
 			)
 		}
+
 		// If there is an error we are going to see if we can retry the call
 		if err != nil {
 			retry, after, retryErr := o.shouldRetry(attempts, err)
@@ -279,6 +289,7 @@ func (o *openaiClient) stream(ctx context.Context, messages []message.Message, t
 	go func() {
 		for {
 			attempts++
+      
 			var openaiStream openai.ChatCompletionStream[openai.ChatCompletion]
 			if o.useResponsesAPI() {
 				openaiStream = o.client.Chat.Responses.NewStreaming(

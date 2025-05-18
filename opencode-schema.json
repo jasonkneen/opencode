@@ -165,7 +165,7 @@
               "grok-3-mini-fast-beta",
               "vertexai.gemini-2.5-flash",
               "o4-mini",
-                "codex-mini-latest",
+              "codex-mini-latest",
               "azure.o3",
               "azure.gpt-4.1-mini",
               "openrouter.o3",

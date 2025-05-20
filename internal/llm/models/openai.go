@@ -13,8 +13,9 @@ const (
 	O1Pro        ModelID = "o1-pro"
 	O1Mini       ModelID = "o1-mini"
 	O3           ModelID = "o3"
-	O3Mini       ModelID = "o3-mini"
-	O4Mini       ModelID = "o4-mini"
+	CodexMiniLatest ModelID = "codex-mini-latest"
+	O3Mini          ModelID = "o3-mini"
+	O4Mini          ModelID = "o4-mini"
 )
 
 var OpenAIModels = map[ModelID]Model{
@@ -27,9 +28,24 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MInCached:   0.50,
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        8.00,
-		ContextWindow:       1_047_576,
-		DefaultMaxTokens:    20000,
-		SupportsAttachments: true,
+		ContextWindow:            1_047_576,
+		DefaultMaxTokens:         20000,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
+	},
+	CodexMiniLatest: {
+		ID:                  CodexMiniLatest,
+		Name:                "Codex Mini Latest",
+		Provider:            ProviderOpenAI,
+		APIModel:            "codex-mini-latest",
+		CostPer1MIn:         0.0,
+		CostPer1MInCached:   0.0,
+		CostPer1MOutCached:  0.0,
+		CostPer1MOut:        0.0,
+		ContextWindow:            4096,
+		DefaultMaxTokens:         1024,
+		SupportsAttachments:      false,
+		UseOpenAIResponsesAPI:    true,
 	},
 	GPT41Mini: {
 		ID:                  GPT41Mini,
@@ -40,9 +56,10 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MInCached:   0.10,
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        1.60,
-		ContextWindow:       200_000,
-		DefaultMaxTokens:    20000,
-		SupportsAttachments: true,
+		ContextWindow:            200_000,
+		DefaultMaxTokens:         20000,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	GPT41Nano: {
 		ID:                  GPT41Nano,
@@ -53,9 +70,10 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MInCached:   0.025,
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        0.40,
-		ContextWindow:       1_047_576,
-		DefaultMaxTokens:    20000,
-		SupportsAttachments: true,
+		ContextWindow:            1_047_576,
+		DefaultMaxTokens:         20000,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	GPT45Preview: {
 		ID:                  GPT45Preview,
@@ -66,9 +84,10 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MInCached:   37.50,
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        150.00,
-		ContextWindow:       128_000,
-		DefaultMaxTokens:    15000,
-		SupportsAttachments: true,
+		ContextWindow:            128_000,
+		DefaultMaxTokens:         15000,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	GPT4o: {
 		ID:                  GPT4o,
@@ -79,9 +98,10 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MInCached:   1.25,
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        10.00,
-		ContextWindow:       128_000,
-		DefaultMaxTokens:    4096,
-		SupportsAttachments: true,
+		ContextWindow:            128_000,
+		DefaultMaxTokens:         4096,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	GPT4oMini: {
 		ID:                  GPT4oMini,
@@ -91,9 +111,10 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MIn:         0.15,
 		CostPer1MInCached:   0.075,
 		CostPer1MOutCached:  0.0,
-		CostPer1MOut:        0.60,
-		ContextWindow:       128_000,
-		SupportsAttachments: true,
+		CostPer1MOut:             0.60,
+		ContextWindow:            128_000,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	O1: {
 		ID:                  O1,
@@ -106,8 +127,9 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MOut:        60.00,
 		ContextWindow:       200_000,
 		DefaultMaxTokens:    50000,
-		CanReason:           true,
-		SupportsAttachments: true,
+		CanReason:                true,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	O1Pro: {
 		ID:                  O1Pro,
@@ -120,8 +142,9 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MOut:        600.00,
 		ContextWindow:       200_000,
 		DefaultMaxTokens:    50000,
-		CanReason:           true,
-		SupportsAttachments: true,
+		CanReason:                true,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	O1Mini: {
 		ID:                  O1Mini,
@@ -134,8 +157,9 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MOut:        4.40,
 		ContextWindow:       128_000,
 		DefaultMaxTokens:    50000,
-		CanReason:           true,
-		SupportsAttachments: true,
+		CanReason:                true,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	O3: {
 		ID:                  O3,
@@ -147,8 +171,9 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        40.00,
 		ContextWindow:       200_000,
-		CanReason:           true,
-		SupportsAttachments: true,
+		CanReason:                true,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 	O3Mini: {
 		ID:                  O3Mini,
@@ -160,9 +185,10 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        4.40,
 		ContextWindow:       200_000,
-		DefaultMaxTokens:    50000,
-		CanReason:           true,
-		SupportsAttachments: false,
+		DefaultMaxTokens:         50000,
+		CanReason:                true,
+		SupportsAttachments:      false,
+		UseOpenAIResponsesAPI:    false,
 	},
 	O4Mini: {
 		ID:                  O4Mini,
@@ -174,8 +200,9 @@ var OpenAIModels = map[ModelID]Model{
 		CostPer1MOutCached:  0.0,
 		CostPer1MOut:        4.40,
 		ContextWindow:       128_000,
-		DefaultMaxTokens:    50000,
-		CanReason:           true,
-		SupportsAttachments: true,
+		DefaultMaxTokens:         50000,
+		CanReason:                true,
+		SupportsAttachments:      true,
+		UseOpenAIResponsesAPI:    false,
 	},
 }

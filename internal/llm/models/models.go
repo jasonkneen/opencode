@@ -18,8 +18,9 @@ type Model struct {
 	CostPer1MOutCached  float64       `json:"cost_per_1m_out_cached"`
 	ContextWindow       int64         `json:"context_window"`
 	DefaultMaxTokens    int64         `json:"default_max_tokens"`
-	CanReason           bool          `json:"can_reason"`
-	SupportsAttachments bool          `json:"supports_attachments"`
+	CanReason                  bool          `json:"can_reason"`
+	SupportsAttachments        bool          `json:"supports_attachments"`
+	UseOpenAIResponsesAPI    bool          `json:"use_openai_responses_api"`
 }
 
 // Model IDs
